@@ -1,0 +1,28 @@
+{
+    "name": "istvanmolitor/gallery",
+    "description": "Gallery",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Molitor István",
+            "email": "istvanmolitor@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "istvanmolitor/admin": "dev-main"
+    },
+    "autoload": {
+        "psr-4": {
+            "Molitor\\Gallery\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Molitor\\Gallery\\Providers\\GalleryServiceProvider"
+            ]
+        }
+    }
+}
