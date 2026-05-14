@@ -18,7 +18,10 @@ class GalleryServiceProvider extends ServiceProvider
 
         // Load API routes
         $this->app->make(Router::class)
-            ->group(['prefix' => 'api'], __DIR__.'/../routes/api.php');
+            ->group([
+                'prefix' => 'api',
+                'middleware' => ['api'],
+            ], __DIR__.'/../routes/api.php');
     }
 
     public function register(): void
