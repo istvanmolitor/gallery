@@ -9,9 +9,14 @@ use Molitor\Gallery\Http\Requests\StoreGalleryRequest;
 use Molitor\Gallery\Http\Requests\UpdateGalleryRequest;
 use Molitor\Gallery\Http\Resources\GalleryResource;
 use Molitor\Gallery\Models\Gallery;
+use Molitor\Gallery\Repositories\GalleryRepositoryInterface;
 
 class GalleryApiController extends Controller
 {
+    public function __construct(
+        private GalleryRepositoryInterface $galleryRepository
+    ) {}
+
     public function index(): AnonymousResourceCollection
     {
         $galleries = Gallery::with('images')->latest()->paginate();
@@ -21,13 +26,14 @@ class GalleryApiController extends Controller
 
     public function store(StoreGalleryRequest $request): GalleryResource
     {
-        $gallery = Gallery::create($request->validated());
+        $validated = $request->validated();
 
-        if ($request->has('images')) {
-            foreach ($request->input('images') as $image) {
-                $gallery->images()->create($image);
-            }
-        }
+        $gallery = $this->galleryRepository->create(
+            $validated['name'],
+            $validated['slug'],
+            $validated['description'] ?? null,
+            $validated['images'] ?? [],
+        );
 
         return new GalleryResource($gallery->load('images'));
     }
@@ -58,3 +64,5 @@ class GalleryApiController extends Controller
         return response()->noContent();
     }
 }
+
+

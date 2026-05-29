@@ -4,6 +4,8 @@ namespace Molitor\Gallery\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Molitor\Gallery\Repositories\GalleryRepository;
+use Molitor\Gallery\Repositories\GalleryRepositoryInterface;
 
 class GalleryServiceProvider extends ServiceProvider
 {
@@ -36,6 +38,6 @@ class GalleryServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../../config/gallery.php', 'gallery');
 
-        // Repositories will be bound here
+        $this->app->bind(GalleryRepositoryInterface::class, GalleryRepository::class);
     }
 }
