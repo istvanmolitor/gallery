@@ -15,8 +15,8 @@ class GalleryResource extends JsonResource
             'slug' => $this->slug,
             'description' => $this->description,
             'images' => GalleryImageResource::collection($this->whenLoaded('images')),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at->toDateTimeString(),
+            'updated_at' => $this->updated_at->toDateTimeString(),
         ];
     }
 }
