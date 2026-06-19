@@ -9,7 +9,7 @@ use Molitor\Theme\Services\ThemeHelper;
 
 class GalleryController extends Controller
 {
-    public function show(ThemeHelper $themeHelper, Gallery $gallery, ?int $image = null): View
+    public function show(Gallery $gallery, ?int $image = null): View
     {
         $images = $gallery->images()->get();
         $currentImage = $image
@@ -28,6 +28,6 @@ class GalleryController extends Controller
         // A kérés szerint "Maximum 4 kép", valószínűleg a lista hossza a lényeg
         $thumbnails = $images->take(4);
 
-        return $themeHelper->view('gallery::web.show', compact('gallery', 'images', 'currentImage', 'prevImage', 'nextImage', 'thumbnails'));
+        return view('gallery::web.show', compact('gallery', 'images', 'currentImage', 'prevImage', 'nextImage', 'thumbnails'));
     }
 }
