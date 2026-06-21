@@ -28,6 +28,6 @@ class GalleryController extends Controller
         // A kérés szerint "Maximum 4 kép", valószínűleg a lista hossza a lényeg
         $thumbnails = $images->take(4);
 
-        return view('gallery::web.show', compact('gallery', 'images', 'currentImage', 'prevImage', 'nextImage', 'thumbnails'));
+        return view('gallery::show', compact('gallery', 'images', 'currentImage', 'prevImage', 'nextImage', 'thumbnails'));
     }
 }
