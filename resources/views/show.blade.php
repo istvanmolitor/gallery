@@ -1,4 +1,32 @@
-@extends('gallery::layouts.app')
+@extends($layout)
+
+@section('sidebar')
+    <x-theme::template view="gallery::show.partials.sidebar" />
+@endsection
+
+@section('top')
+    <x-theme::template view="gallery::show.partials.top" />
+@endsection
+
+@section('bottom')
+    <x-theme::template view="gallery::show.partials.bottom" />
+@endsection
+
+@section('page-top')
+    <x-theme::template view="gallery::show.partials.page-top" />
+@endsection
+
+@section('page-bottom')
+    <x-theme::template view="gallery::show.partials.page-bottom" />
+@endsection
+
+@section('content-top')
+    <x-theme::template view="gallery::show.partials.content-top" />
+@endsection
+
+@section('content-bottom')
+    <x-theme::template view="gallery::show.partials.content-bottom" />
+@endsection
 
 @section('content')
     <div class="container mx-auto px-4 py-4 h-[calc(100vh-80px)] flex flex-col">

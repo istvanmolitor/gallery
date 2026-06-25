@@ -5,10 +5,16 @@ namespace Molitor\Gallery\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 use Molitor\Gallery\Models\Gallery;
-use Molitor\Theme\Services\ThemeHelper;
+use Molitor\Gallery\Services\GallerySettingForm;
+use Molitor\Theme\Services\LayoutService;
 
 class GalleryController extends Controller
 {
+    public function __construct(
+        private GallerySettingForm $gallerySettingForm,
+        private LayoutService $layoutService,
+    ) {}
+
     public function show(Gallery $gallery, ?int $image = null): View
     {
         $images = $gallery->images()->get();
@@ -28,6 +34,9 @@ class GalleryController extends Controller
         // A kérés szerint "Maximum 4 kép", valószínűleg a lista hossza a lényeg
         $thumbnails = $images->take(4);
 
-        return view('gallery::show', compact('gallery', 'images', 'currentImage', 'prevImage', 'nextImage', 'thumbnails'));
+        $layoutName = $this->gallerySettingForm->get('gallery_layout');
+        $layout = $this->layoutService->getLayoutTemplate($layoutName);
+
+        return view('gallery::show', compact('gallery', 'images', 'currentImage', 'prevImage', 'nextImage', 'thumbnails', 'layout'));
     }
 }

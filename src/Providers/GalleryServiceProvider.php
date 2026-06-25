@@ -8,6 +8,8 @@ use Molitor\Cms\Services\ContentHandler;
 use Molitor\Gallery\Repositories\GalleryRepository;
 use Molitor\Gallery\Repositories\GalleryRepositoryInterface;
 use Molitor\Gallery\Services\ContentElementTypes\GalleryElementType;
+use Molitor\Gallery\Services\GallerySettingForm;
+use Molitor\Setting\Services\SettingHandler;
 
 class GalleryServiceProvider extends ServiceProvider
 {
@@ -34,6 +36,8 @@ class GalleryServiceProvider extends ServiceProvider
             ->group([
                 'middleware' => ['web'],
             ], __DIR__.'/../routes/web.php');
+
+        $this->app->make(SettingHandler::class)->registerSettingForm(GallerySettingForm::class);
 
         $this->app->booted(function () {
             if ($this->app->bound(ContentHandler::class)) {
