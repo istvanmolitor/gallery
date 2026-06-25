@@ -4,8 +4,10 @@ namespace Molitor\Gallery\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Molitor\Cms\Services\ContentHandler;
 use Molitor\Gallery\Repositories\GalleryRepository;
 use Molitor\Gallery\Repositories\GalleryRepositoryInterface;
+use Molitor\Gallery\Services\ContentElementTypes\GalleryElementType;
 
 class GalleryServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,12 @@ class GalleryServiceProvider extends ServiceProvider
             ->group([
                 'middleware' => ['web'],
             ], __DIR__.'/../routes/web.php');
+
+        $this->app->booted(function () {
+            if ($this->app->bound(ContentHandler::class)) {
+                $this->app->make(ContentHandler::class)->registerElementType(new GalleryElementType);
+            }
+        });
     }
 
     public function register(): void
