@@ -26,8 +26,8 @@ class GalleryDataTable extends DataTable
         $this->addColumn('name')->setSearchable()->setOrderable();
     }
 
-    protected function getBaseQuery(): Builder
+    public function query(Builder $query): Builder
     {
-        return Gallery::query()->with('images');
+        return $query->with('images');
     }
 }
