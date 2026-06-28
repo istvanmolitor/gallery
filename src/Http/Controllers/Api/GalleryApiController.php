@@ -5,6 +5,7 @@ namespace Molitor\Gallery\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Molitor\Gallery\DataTables\GalleryDataTable;
 use Molitor\Gallery\Http\Requests\StoreGalleryRequest;
 use Molitor\Gallery\Http\Requests\UpdateGalleryRequest;
 use Molitor\Gallery\Http\Resources\GalleryResource;
@@ -17,11 +18,9 @@ class GalleryApiController extends Controller
         private GalleryRepositoryInterface $galleryRepository
     ) {}
 
-    public function index(): AnonymousResourceCollection
+    public function index(GalleryDataTable $dataTable): AnonymousResourceCollection
     {
-        $galleries = Gallery::with('images')->latest()->paginate();
-
-        return GalleryResource::collection($galleries);
+        return $dataTable->getResponse();
     }
 
     public function store(StoreGalleryRequest $request): GalleryResource
