@@ -21,6 +21,11 @@ class GalleryDataTable extends DataTable
         return GalleryResource::class;
     }
 
+    protected function getSearchPlaceholder(): string
+    {
+        return 'Keresés név vagy slug alapján...';
+    }
+
     protected function initColumns(): void
     {
         $this->addColumn('name')->setSearchable()->setOrderable();
